@@ -4,10 +4,12 @@ import router from './router'
 import VueCookies from 'vue-cookies'
 import appdata from './mixins/appdata'
 
+
 Vue.use(router)
 Vue.use(VueCookies)
 Vue.mixin(appdata)
-// console.log(this.user)
+
+window.randomstring = require("randomstring");
 // set default config for cookies
 VueCookies.config('30d')
 

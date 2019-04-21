@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <div class="row">
+      <div class="col-md-6">
       <h1 class="title">Your Story Starts With Us.</h1>
           <h4>
            *Airtime payment and bill payments from the convenience of your mobile device.  
@@ -10,6 +11,7 @@
           <a href="" class="btn btn-danger btn-raised btn-lg">
             Create an account
           </a>
+      </div>
     </div>
 </template>
 

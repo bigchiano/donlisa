@@ -14,6 +14,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Material Kit CSS -->
     <link href="{{ asset('material-kit/css/material-kit.css?v=2.0.5') }}" rel="stylesheet" />
+    <script src="https://js.paystack.co/v1/inline.js"></script>
   </head>
   <body sidebar-collapse>
     

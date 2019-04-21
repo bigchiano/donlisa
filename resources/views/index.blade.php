@@ -12,7 +12,7 @@
 
   <div class="main main-raised">
   <div class="container">
-    <div class="section text-center">
+    <div class="section">
       <App />
     </div>
   </div>

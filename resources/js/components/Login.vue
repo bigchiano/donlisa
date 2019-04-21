@@ -2,7 +2,7 @@
     <div>
         <div class="row">
             <div class="col-md-6 text-align">
-            <form @submit.prevent="login" class="form">
+            <form @submit.prevent="" class="form">
                 <h4 class="card-title">Login</h4>
 
 
@@ -15,7 +15,7 @@
                 <label class="control-label">Password</label>
                     <input v-model="password" type="password" class="form-control" />
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
+                <button @click="login" type="submit" class="btn btn-primary">Login</button>
             </form>
             </div>
         </div>
@@ -41,7 +41,12 @@ export default {
                     this.$cookies.set('token', response.data.token) 
                     window.location.href = '/dashboard'
 
+                } else {
+                    console.log(response.data)
                 }
+            })
+            .catch(errors => {
+                console.log(errors)
             })
         }
     }

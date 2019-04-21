@@ -18,5 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // register new user
-Route::post('/register', 'Usercontroller@create');
-Route::post('/login', 'Usercontroller@login');
+Route::post('/register', 'UserController@create');
+Route::post('/login', 'UserController@login');
+
+// get hash for transactions
+Route::post('/getHash/{combined_string}', 'ServiceController@getHash');
