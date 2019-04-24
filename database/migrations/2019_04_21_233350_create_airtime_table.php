@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePowerTable extends Migration
+class CreateAirtimeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreatePowerTable extends Migration
      */
     public function up()
     {
-        Schema::create('power', function (Blueprint $table) {
+        Schema::create('airtime', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->string('meter_number');
+            $table->string('network');
+            $table->string('phone_to');
             $table->string('amount');
             $table->timestamps();
         });
@@ -29,6 +30,6 @@ class CreatePowerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('power');
+        Schema::dropIfExists('airtime');
     }
 }

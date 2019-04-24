@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-6 text-align">
+            <div class="col-md-6 ml-auto mr-auto">
             <form @submit.prevent="" class="form">
-                <h4 class="card-title">Login</h4>
+                <h4 class="card-title text-center">Login</h4>
 
-
+                <p class="text-danger" v-if="error != ''">*{{ error }}</p>
                 <div class="form-group label-floating">
                 <label class="control-label">Email/Phone</label>
                     <input v-model="email" type="text" class="form-control" />
@@ -27,26 +27,28 @@ export default {
     data() {
         return {
             email: '',
-            password: ''
+            password: '',
+            error: ''
         }
     },
     methods: {
         login() {
-            axios.post(this.url + '/api/login', {
+            axios.post('/api/login', {
                 email: this.email,
                 password: this.password
             })
             .then(response => {
-                if(response.data.token) {
+                if(response.data.error) {
+                    this.error = response.data.error
+                } else if(response.data.token) {
+                    toastr.success('Log in successful')
                     this.$cookies.set('token', response.data.token) 
                     window.location.href = '/dashboard'
 
-                } else {
-                    console.log(response.data)
                 }
             })
-            .catch(errors => {
-                console.log(errors)
+            .catch(error => {
+                console.log(error)
             })
         }
     }

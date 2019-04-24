@@ -1,13 +1,13 @@
 <template>
     <div>
         <div class="row">
-        <div class="col-md-8">
-            <form @submit.prevent="vend">
+        <div class="col-md-12">
+            <form @submit.prevent="send">
                 <div class="form-group">
                     <label for="network">Network</label>
                     <select @change="checkBundleList" v-model="network" class="form-control selectpicker" data-style="btn btn-link" id="network">
                         <option> Select network </option>
-                        <option>Mtn</option>
+                        <option>MTN</option>
                         <option>Airtel</option>
                         <option>9Mobile</option>
                         <option>Smile</option>
@@ -17,6 +17,7 @@
                 <div v-if="bundles != ''" class="form-group">
                     <label for="network">Select bundle</label>
                     <select v-model="bundle" class="form-control selectpicker" data-style="btn btn-link" id="network">
+                        <option selected="selected"> Selected </option>
                         <option :value="bundle" v-for="bundle in bundles" :key="bundle.index"> {{bundle.title}} </option>
                     </select>
                 </div>
@@ -33,6 +34,8 @@
 </template>
 
 <script>
+import { EventBus } from '../../Event.js'
+
 export default {
     data() {
         return {
@@ -47,32 +50,56 @@ export default {
     },
     methods: {
         checkBundleList() {
-            axios.get('https://irecharge.com.ng/pwr_api_sandbox/v2/get_data_bundles.php?response_format=json&data_network='+this.network)
+            this.bundle = ''
+            this.bundles = ''
+            axios.get('api/check_data_bundles_list/response_format=json&data_network='+this.network)
             .then(response => {
                 this.bundles = response.data.bundles
+                this.bundle = this.bundles[0]
+            })
+        },
+        send() {
+            let combined_string = this.vendor_code + "|"+this.ref+"|"+ this.phone+"|"+this.network 
+            combined_string += "|" +this.bundle.code + "|" +this.public_key
+           
+            this.hash = this.genHash(combined_string)
+            
+            // save details
+            axios.post('/api/buy_data', {
+                network: this.network,
+                phone_to: this.phone,
+                description: this.bundle.title,
+                amount: this.bundle.price,
+                transaction_id: this.ref
+            })
+            .then(response => {
+                if(response.data.success) {
+                    this.payWithPaystack(this.bundle.price, this.genRef(), 'data', this.ref)
+                } else {
+                    console.log(response.data)
+                }
             })
         },
         vend() {
-            let public_key = '444c734e90cfc2448c9bc241b09a530c'
-            let combined_string = this.vendor_code + this.ref + this.phone + this.network + this.code + public_key
-           
-            axios.post(this.url + '/api/getHash/' + combined_string)
+            let param = 'vendor_code='+ this.vendor_code +'&vtu_network=' + this.network
+            param += '&vtu_data='+ this.bundle.code + '&vtu_number=' + this.phone 
+            param += '&vtu_email=' + this.user.email + '&reference_id='+ this.ref 
+            param += '&response_format=json&hash=' + this.hash
+            axios.get('api/vend_data/'+ param)
             .then(response => {
-                this.hash = response.data
+                console.log(response)
+            })
+            .catch(errors => {
+                console.log(errors)
             })
         }
     },
-    watch: {
-        hash: function() {
-            let param = 'vendor_code='+ this.vendor_code +'&vtu_network='+ this.network + '&vtu_data='+ this.bundle.code + '&vtu_number=' + this.phone + '&vtu_email=' + this.user.email + '&reference_id='+ this.genRef() +'&response_format=json&hash='+ this.hash
-            if(this.hash != '') {
-                axios.get('https://irecharge.com.ng/pwr_api_sandbox/v2/vend_data.php/'+ param)
-                .then(response => {
-                    this.amount = this.bundle.price
-                    this.payWithPaystack(this.amount, this.ref)
-                })
+    created() {
+        EventBus.$on('paid', (payload) => {
+            if(payload.service == 'data') {   
+                this.vend()
             }
-        }
+        })
     }
 }
 </script>

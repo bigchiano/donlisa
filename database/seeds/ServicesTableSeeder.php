@@ -12,16 +12,16 @@ class ServicesTableSeeder extends Seeder
     public function run()
     {
         DB::table('services')->insert([
-            'name' => 'Buy data'
+            'name' => 'buy_data'
         ]);
         DB::table('services')->insert([
-            'name' => 'Buy airtime'
+            'name' => 'buy_airtime'
         ]);
         DB::table('services')->insert([
-            'name' => 'Buy power'
+            'name' => 'buy_power'
         ]);
         DB::table('services')->insert([
-            'name' => 'Subscribe tv'
+            'name' => 'subscribe_tv'
         ]);
     }
 }

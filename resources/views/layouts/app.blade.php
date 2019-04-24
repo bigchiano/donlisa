@@ -11,12 +11,13 @@
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- jquery toastr -->
+    <link href="{{ asset('toastr/toastr.css') }}" rel="stylesheet"/>
     <!-- Material Kit CSS -->
     <link href="{{ asset('material-kit/css/material-kit.css?v=2.0.5') }}" rel="stylesheet" />
     <script src="https://js.paystack.co/v1/inline.js"></script>
   </head>
-  <body sidebar-collapse>
+  <body class="sidebar-collapse">
     
     <div id="app">
         <nav-bar></nav-bar>
@@ -62,6 +63,9 @@
 
 
 <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
+
+<!-- toastr js library -->
+<script src="{{ asset('toastr/toastr.min.js') }}"></script>
 <!--   Core JS Files   -->
 <!-- <script src="{{ asset('material-kit/js/core/jquery.min.js') }}" type="text/javascript"></script> -->
 <script src="{{ asset('material-kit/js/core/popper.min.js') }}" type="text/javascript"></script>

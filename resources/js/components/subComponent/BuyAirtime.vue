@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="row">
-            <div class="col-md-8">
-                <form @submit.prevent="vend">
+            <div class="col-md-12">
+                <form @submit.prevent="send">
                     <div class="form-group">
                         <label for="network">Network</label>
                         <select v-model="network" class="form-control selectpicker" data-style="btn btn-link" id="network">
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { EventBus } from '../../Event.js'
+
 export default {
     data() {
         return {
@@ -40,34 +42,59 @@ export default {
         }
     },
     methods: {
-        vend() {
-            let public_key = '444c734e90cfc2448c9bc241b09a530c'
-            let combined_string = this.vendor_code + this.ref + this.network + this.amount + this.phone + this.user.email + public_key
+        send() {
+            // // combine strings
+            let combined_string = this.vendor_code+"|"+this.ref+"|"+this.phone
+            combined_string += "|"+this.network+"|"+this.amount+"|"+this.public_key
            
-            axios.post(this.url + '/api/getHash/' + combined_string)
+            // hash the combined string
+            this.hash = this.genHash(combined_string)
+
+            // save details
+            axios.post('/api/buy_airtime', {
+                network: this.network,
+                phone_to: this.phone,
+                amount: this.amount,
+                transaction_id: this.ref
+            })
             .then(response => {
-                this.hash = response.data
+                if(response.data.success) {
+                    this.payWithPaystack(this.amount, this.genRef(), 'airtime', this.ref)
+                } else {
+                    console.log(response.data)
+                }
             })
         },
-        save() {
-            axios.post(this.url + '/buy_airtime', {
-                //
+        vend() {
+            // required parameters to vend airtime
+            let param = 'vendor_code='+ this.vendor_code +'&vtu_network='+ this.network 
+            param += '&vtu_amount='+ this.amount + '&vtu_number=' + this.phone 
+            param += '&vtu_email=' + this.user.email + '&reference_id=' + this.ref
+            param += '&response_format=json&hash='+ this.hash
+
+            axios.get('api/vend_airtime/'+param)
+            .then(response => {
+                axios.post('/api/buy_airtime/vend/'+this.ref)
+                .then(response => {
+                    // transaction has been completed
+                    if(response.data.success) {
+                        console.log('transaction successful')
+                    }
+                    console.log(response)
+                })
             })
+            .catch(errors => {
+                console.log(errors)
+            })
+            
         }
     },
-    watch: {
-        hash: function() {
-            let param = 'vendor_code='+ this.vendor_code +'&vtu_network='+ this.network + '&vtu_amount='+ this.amount + '&vtu_number=' + this.phone + '&vtu_email=' + this.user.email + '&reference_id='+ this.genRef() +'&response_format=json&hash='+ this.hash
-
-            if(this.hash != '') {
-                axios.get('https://irecharge.com.ng/pwr_api_sandbox/v2/vend_airtime.php/'+param)
-                .then(response => {
-                    console.log(response)
-                    this.hash = ''
-                    this.payWithPaystack(this.amount, this.ref)
-                })
+    created() {
+        EventBus.$on('paid', (payload) => {
+            if(payload.service == 'airtime') {   
+                this.vend()
             }
-        }
+        })
     }
 }
 </script>

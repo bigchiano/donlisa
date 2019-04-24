@@ -17,8 +17,9 @@ class CreateTransactionTable extends Migration
             $table->bigIncrements('id');
             $table->integer('service_id');
             $table->integer('user_id');
-            $table->string('reference_id');
-            $table->boolean('completed')->default(false);
+            $table->string('transaction_id')->unique();
+            $table->boolean('paid')->default(false);
+            $table->boolean('delivered')->default(false);
             $table->timestamps();
         });
     }

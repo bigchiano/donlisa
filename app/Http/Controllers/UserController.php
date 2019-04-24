@@ -24,7 +24,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) { 
-            return response()->json(['error' => $validator->errors()]);            
+            return response()->json(['errors' => $validator->errors()]);            
         }
         $input = $request->all(); 
         $request->merge([
@@ -44,7 +44,7 @@ class UserController extends Controller
             $token =  $user->createToken('MyApp')->accessToken; 
             return response()->json(['token' => $token]); 
         } else { 
-            return response()->json(['error' => 'Unauthorised']);
+            return response()->json(['error' => 'Invalid email or password']);
         }         
     }
 
