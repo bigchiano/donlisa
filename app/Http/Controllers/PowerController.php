@@ -50,7 +50,7 @@ class PowerController extends Controller
     // make api calls to irecharge
     // get list of utilities
     public function list_utilities() {
-        $url = 'https://irecharge.com.ng/pwr_api_sandbox/v2/get_electric_disco.php?response_format=json';
+        $url = 'https://irecharge.com.ng/pwr_api_live/v2/get_electric_disco.php?response_format=json';
 
         $response = Curl::to($url)
         ->get();

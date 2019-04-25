@@ -44,75 +44,81 @@
                 </div>
             </div>
         </div> -->
+        <div class="page-header header-filter" style="background-image: url('/material-kit/img/scott-webb-57628-unsplash.jpg'); background-size: cover; background-position: top center;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 ml-auto mr-auto">
+                        <div id="accordion">
+                            <div class="card">
+                                <div class="card-header card-header-primary" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-white btn-link">
+                                        <i class="material-icons">wb_incandescent</i> 
+                                        Power
+                                    </button>
+                                </h5>
+                                </div>
 
-        <div class="row">
-            <div class="col-md-6 ml-auto mr-auto">
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link">
-                                <i class="material-icons">wb_incandescent</i> 
-                                Power
-                            </button>
-                        </h5>
-                        </div>
-
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            <!-- buy power component -->
-                            <buy-power></buy-power>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link collapsed">
-                            <i class="material-icons">perm_phone_msg</i>
-                            Airtime
-                            </button>
-                        </h5>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            <buy-airtime></buy-airtime>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingThree"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link collapsed">
-                                <i class="material-icons">data_usage</i>
-                                Data
-                            </button>
-                        </h5>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body">
-                            <buy-data></buy-data>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingFour"  data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link collapsed">
-                                <i class="material-icons">tv</i>
-                                Tv
-                            </button>
-                        </h5>
-                        </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                        <div class="card-body">
-                            <subscribe-tv></subscribe-tv>
-                        </div>
+                                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <buy-power></buy-power>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header card-header-primary" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-white btn-link collapsed">
+                                    <i class="material-icons">perm_phone_msg</i>
+                                    Airtime
+                                    </button>
+                                </h5>
+                                </div>
+                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                                <div class="card-body">
+                                    <buy-airtime></buy-airtime>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header card-header-primary" id="headingThree"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-white btn-link collapsed">
+                                        <i class="material-icons">data_usage</i>
+                                        Data
+                                    </button>
+                                </h5>
+                                </div>
+                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                                <div class="card-body">
+                                    <buy-data></buy-data>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-header card-header-primary" id="headingFour"  data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-white btn-link collapsed">
+                                        <i class="material-icons">tv</i>
+                                        Tv
+                                    </button>
+                                </h5>
+                                </div>
+                                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                                <div class="card-body">
+                                    <subscribe-tv></subscribe-tv>
+                                </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
+        </div>
+
+        <!-- <div class="main">
+            
+        </div> -->
     </div>
 </template>
 
@@ -129,5 +135,12 @@ export default {
     .nav-link .material-icons {
         display: inline-block;
         margin-right: 10px;
+    }
+    .page-header {
+        height: 100%;
+    }
+    .page-header>.container {
+        padding-top: 20vh;
+        padding-bottom: 20px;
     }
 </style>

@@ -30,7 +30,7 @@
           <ul>
             <li>
               <a href="#">
-                Eskay Team
+                Amadurs
               </a>
             </li>
             <li>
@@ -52,11 +52,11 @@
         </nav>
         <div class="copyright float-right">
           &copy;
-          <!-- <script>
+          <script>
             document.write(new Date().getFullYear())
-          </script>, -->
-           made with <i class="material-icons">favorite</i> by
-          <a href="#" target="_blank">The Eskay Team</a>
+          </script>,
+           made with <i class="material-icons text-danger">favorite</i> by
+          <a href="#" target="_blank">The Amadurs Team</a>
         </div>
       </div>
     </footer>

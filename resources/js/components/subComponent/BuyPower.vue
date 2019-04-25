@@ -58,7 +58,11 @@ export default {
         axios.get('api/list_utilities')
         .then(response => {
             this.bundles = response.data.bundles
-            this.bundle = this.bundles[0]
+            if(response.data.bundles && response.data.bundles.length > 0) {
+                this.bundle = response.data.bundles[0]
+            } else {
+                toastr.info('Service temporary unavailable')
+            }
         })
 
         EventBus.$on('paid', (payload) => {

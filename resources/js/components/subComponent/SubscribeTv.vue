@@ -84,7 +84,12 @@ export default {
             axios.get('api/check_tv_bundles_list/response_format=json&tv_network='+this.tv_network)
             .then(response => {
                 this.bundles = response.data.bundles
-                this.bundle = this.bundles[0]
+                if(response.data.bundles && response.data.bundles.length > 0) {
+                    this.bundle = response.data.bundles[0]
+                } else {
+                    toastr.info('Service temporary unavailable')
+                }
+                
             })
         },
         checkCard() {
@@ -100,12 +105,13 @@ export default {
 
             axios.get('api/check_tv_card/'+param)
             .then(response => {
-                console.log(response)
-                this.smart_card_info = response.data
+                if(response.access_token != '') {
+                    this.smart_card_info = response.data
+                } 
             })
         },
         send() {
-            this.payWithPaystack(this.amount, this.genRef())
+            this.payWithPaystack(this.bundle.price, this.genRef())
         },
         vend() {
             let combined_string = this.vendor_code + "|" + this.ref + "|"+ this.card_number

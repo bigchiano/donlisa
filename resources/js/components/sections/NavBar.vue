@@ -40,6 +40,13 @@
 </template>
 
 <script>
+$(document).ready(function() {
+  $('.nav-item').click(function(){
+      $("html").removeClass('nav-open');
+      $(".navbar-toggler").removeClass('toggled');
+  });
+})
+
 export default {
 
 }

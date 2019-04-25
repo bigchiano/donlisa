@@ -47,7 +47,9 @@ import { EventBus } from '../Event';
                 this.token = ''
                 $cookies.remove('user')
                 $cookies.remove('token')
-                window.location.href = '/'
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 1000);
             },
             payWithPaystack(amount, newref, service, transaction_id){
                 var handler = PaystackPop.setup({

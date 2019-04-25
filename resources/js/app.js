@@ -20,7 +20,7 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 let token = $cookies.get('token');
 if($cookies.isKey('token')) {
     // // seet default headers for axios
-    axios.defaults.baseURL = 'http://donlisa.ly';
+    axios.defaults.baseURL = 'http://donlisa.com';
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 

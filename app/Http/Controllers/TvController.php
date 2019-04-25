@@ -48,7 +48,7 @@ class TvController extends Controller
 
     // check_tv_bundles_list
     public function check_tv_bundles_list($param) {
-        $url = 'https://irecharge.com.ng/pwr_api_sandbox/v2/get_tv_bouquet.php?';
+        $url = 'https://irecharge.com.ng/pwr_api_live/v2/get_tv_bouquet.php?';
 
         $response = Curl::to($url.''.$param)
         ->get();
@@ -58,7 +58,7 @@ class TvController extends Controller
 
     // check tv card info
     public function check_tv_card($param) {
-        $url = 'https://irecharge.com.ng/pwr_api_sandbox/v2/get_smartcard_info.php?';
+        $url = 'https://irecharge.com.ng/pwr_api_live/v2/get_smartcard_info.php?';
 
         $response = Curl::to($url.''.$param)
         ->get();
@@ -73,7 +73,6 @@ class TvController extends Controller
         $response = Curl::to($url.''.$param)
         ->get();
 
-        // return response($response);
-        return response('cool');
+        return response($response);
     }
 }
