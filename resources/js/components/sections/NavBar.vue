@@ -12,25 +12,68 @@
       </div>
 
       <!-- if user is logged in -->
-      <div v-if="auth" class="collapse navbar-collapse" id="navbarNav">
+      <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <router-link to='/dashboard' class="nav-link">Dashboard</router-link>
+          <li v-if="auth" class="nav-item">
+            <router-link to='/dashboard' class="nav-link">
+            <i class="material-icons">apps</i> Dashboard
+            </router-link>
           </li>
-          <li class="nav-item">
-            <a href="javascript:void(0)" @click="logout" class="nav-link">Logout</a>
+          
+          <li v-if="auth" class="nav-item">
+            <router-link to="/buy_power" class="nav-link">
+                <i class="material-icons">wb_incandescent</i>  Power
+              </router-link>
           </li>
-        </ul>
-      </div>
+          <li v-if="auth" class="nav-item">
+            <router-link to="/buy_airtime" class="nav-link">
+                <i class="material-icons">perm_phone_msg</i> Airtime
+              </router-link>
+          </li>
+          <li v-if="auth" class="nav-item">
+            <router-link to="/buy_data" class="nav-link">
+                <i class="material-icons">data_usage</i> Data
+              </router-link>
+          </li>
+          <li v-if="auth" class="nav-item">
+            <router-link to="/subscribe_tv" class="nav-link">
+                <i class="material-icons">tv</i> Tv
+              </router-link>
+          </li>                   
+          
+          
+          
+          <!-- <li class="nav-item">
+            <a href="javascript:void(0)" @click="cs" class="nav-link">
+              <i class="material-icons">history</i>History</a>
+          </li> -->
+          <li v-if="auth" class="nav-item">
+            <a href="javascript:void(0)" @click="logout" class="nav-link">
+              <i class="material-icons">toggle_off</i>Logout</a>
+          </li>
+
+      <li class="nav-item">
+        <router-link to="/about" class="nav-link">
+            About Us
+          </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/member" class="nav-link">
+            Pay with Edpoints
+          </router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/faq" class="nav-link">
+            FAQ
+          </router-link>
+      </li>
 
       <!-- if user isn't logged in -->
-      <div v-else class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li v-if="!auth" class="nav-item">
             <router-link to='/login' class="nav-link">Login</router-link>
 
           </li>
-          <li class="nav-item">
+          <li v-if="!auth" class="nav-item">
             <router-link to='/register' class="nav-link">Register</router-link>
           </li>
         </ul>
@@ -40,15 +83,13 @@
 </template>
 
 <script>
-$(document).ready(function() {
-  $('.nav-item').click(function(){
-      $("html").removeClass('nav-open');
-      $(".navbar-toggler").removeClass('toggled');
-  });
-})
-
 export default {
-
+  mounted() {
+    $('.nav-item').click(function(){
+        $("html").removeClass('nav-open');
+        $(".navbar-toggler").removeClass('toggled');
+    });
+  }
 }
 </script>
 

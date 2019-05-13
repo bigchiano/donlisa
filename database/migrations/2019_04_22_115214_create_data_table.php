@@ -20,6 +20,7 @@ class CreateDataTable extends Migration
             $table->string('phone_to');
             $table->string('description');
             $table->string('amount');
+            $table->string('transaction_id')->unique();
             $table->timestamps();
         });
     }

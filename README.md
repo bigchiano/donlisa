@@ -23,7 +23,7 @@ donlisa.com/api/login
 ``` bash 
 donlisa.com/api/user
 
-*headers
+headers
 Authorization = Bearer token
 
 where token is the user unique token generated when they login
