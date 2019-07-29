@@ -1,113 +1,93 @@
 <template>
     <div>
+        
+        <div class="page-header header-filter" data-parallax="true" style="background-image: url('/material-kit/img/scott-webb-57628-unsplash.jpg'); background-size: cover; background-position: top center;">
+            <div class="container">
+                <div class="row">
 
-        <!-- <div class="row">
-            <div class="col-md-4">
-                <ul class="nav nav-pills nav-pills-primary flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#tab1" data-toggle="tab"> 
-                        <i class="material-icons">wb_incandescent</i> 
-                        Power 
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tab2" data-toggle="tab"><i class="material-icons">perm_phone_msg</i>
-                            Airtime 
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tab3" data-toggle="tab"><i class="material-icons">data_usage</i>
-                            Data 
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tab4" data-toggle="tab"><i class="material-icons">tv</i>
-                            Tv 
-                        </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-8">
-                <div class="tab-content">
-                    <div class="tab-pane active" id="tab1">
-                    <buy-power></buy-power>
+                    <!-- Power -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card card-dashboard" @click="service = 'power'">
+                            <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Power</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">N{{remit.power}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="material-icons text-grey-300">wb_incandescent</i>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="tab2">
-                    <buy-airtime></buy-airtime>
+
+                    <!-- Airtime -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card card-dashboard" @click="service = 'airtime'">
+                            <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Airtime</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">N{{remit.airtime}}</div>
+                                </div>
+                                <div class="col-auto">
+                                <i class="material-icons text-gray-300">perm_phone_msg</i>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="tab3">
-                        <buy-data></buy-data>
+
+                     <!-- Data -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card card-dashboard" @click="service = 'data'">
+                            <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Data</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">N{{remit.data}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="material-icons">data_usage</i>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="tab-pane" id="tab4">
-                        <subscribe-tv></subscribe-tv>
+
+                    <!-- Tv -->
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card card-dashboard" @click="service = 'tv'">
+                            <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Tv</div>
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">N{{remit.tv}}</div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="material-icons">tv</i>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                
+                
             </div>
-        </div> -->
+        </div>
 
-        <div class="row">
-            <div class="col-md-6 ml-auto mr-auto">
-                <div id="accordion">
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link">
-                                <i class="material-icons">wb_incandescent</i> 
-                                Power
-                            </button>
-                        </h5>
-                        </div>
-
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            <!-- buy power component -->
-                            <buy-power></buy-power>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link collapsed">
-                            <i class="material-icons">perm_phone_msg</i>
-                            Airtime
-                            </button>
-                        </h5>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            <buy-airtime></buy-airtime>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingThree"  data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link collapsed">
-                                <i class="material-icons">data_usage</i>
-                                Data
-                            </button>
-                        </h5>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body">
-                            <buy-data></buy-data>
-                        </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header card-header-primary" id="headingFour"  data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                        <h5 class="mb-0">
-                            <button class="btn btn-white btn-link collapsed">
-                                <i class="material-icons">tv</i>
-                                Tv
-                            </button>
-                        </h5>
-                        </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                        <div class="card-body">
-                            <subscribe-tv></subscribe-tv>
-                        </div>
+        <div class="main" v-if="service != ''">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 mb-4">
+                        <div class="card">
+                            <div v-if="service == 'power'"> <power /> </div>
+                            <div v-if="service == 'data'"> <data-trans /> </div>
+                            <div v-if="service == 'airtime'"> <airtime /> </div>
+                            <div v-if="service == 'tv'"> <tv /> </div>
                         </div>
                     </div>
                 </div>
@@ -118,7 +98,21 @@
 
 <script>
 export default {
-    //
+    data() {
+        return {
+            service: '',
+            remit: {}
+        }
+    },
+    created() {
+        axios.post('/api/remit')
+        .then(response => {
+            this.remit = response.data
+        })
+        .catch(errors => {
+            console.log(errors)
+        })
+    }
 }
 </script>
 
@@ -129,5 +123,20 @@ export default {
     .nav-link .material-icons {
         display: inline-block;
         margin-right: 10px;
+    }
+    .page-header {
+        min-height: 100vh;
+        max-height: 1000px;
+        height: 100%;
+    }
+    .page-header>.container {
+        padding-top: 20vh;
+        padding-bottom: 20px;
+    }
+    .card-dashboard {
+        margin: 0px;
+        height: 100px;
+        border-left: 3px solid blueviolet;
+        cursor: pointer;
     }
 </style>

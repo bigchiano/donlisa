@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Validator;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 class UserController extends Controller
 {
@@ -46,6 +48,30 @@ class UserController extends Controller
         } else { 
             return response()->json(['error' => 'Invalid email or password']);
         }         
+    }
+
+    // send password reset link
+    public function send(Request $request)
+    {
+        $email = $request->email;
+        if(!isset($email)) {
+            return response()->json(['error' => 'Email is required']);
+        }
+
+        $user = User::where('email', $email)->first();
+        if($user->count() < 1) {
+            return response()->json(['error' => 'Invalid email address']);
+        }
+
+        $msg = $user->name. 'You have request to reset your password,
+               CLick this link to reset your password'; 
+
+        $data = [
+            'message' => $msg
+        ];
+        // Mail::to($user->email)->send(new SendMailable($data));
+
+        return response()->json(['success' => 'Mail has been sent successfully']);
     }
 
 }

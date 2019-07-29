@@ -20,13 +20,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 // register new user
 Route::post('/register', 'UserController@create');
 Route::post('/login', 'UserController@login');
-Route::post('/check/{param}', 'Check@index');
+Route::post('/password-reset', 'UserController@send');
 
 Route::group(['middleware' => ['auth:api']], function(){
+    // save data to db to open a transaction
     Route::post('/buy_power', 'PowerController@store');
     Route::post('/buy_airtime', 'AirtimeController@store');
     Route::post('/buy_data', 'DataController@store');
     Route::post('/pay_tv', 'TvController@store');
+
+    // get transaction history
+    Route::post('/remit', 'TransactionController@index');
+    Route::post('/power_transactions', 'PowerController@transactions');
+    Route::post('/data_transactions', 'DataController@transactions');
+    Route::post('/airtime_transactions', 'AirtimeController@transactions');
+    Route::post('/tv_transactions', 'TvController@transactions');
 });
 
 Route::group(['middleware' => ['auth:api']], function(){
@@ -38,6 +46,9 @@ Route::group(['middleware' => ['auth:api']], function(){
 
     // *** Mark transaction as completed
     Route::post('/buy_airtime/vend/{transaction_id}', 'AirtimeController@vend');
+    Route::post('/buy_power/vend/{transaction_id}', 'PowerController@vend');
+    Route::post('/buy_data/vend/{transaction_id}', 'DataController@vend');
+    Route::post('/pay_tv/vend/{transaction_id}', 'TvController@vend');
 
 
     

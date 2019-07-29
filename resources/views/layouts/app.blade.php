@@ -15,10 +15,20 @@
     <link href="{{ asset('toastr/toastr.css') }}" rel="stylesheet"/>
     <!-- Material Kit CSS -->
     <link href="{{ asset('material-kit/css/material-kit.css?v=2.0.5') }}" rel="stylesheet" />
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet"/>
   </head>
   <body class="sidebar-collapse">
-    
+    <!-- transacton loader -->
+    <div class="white-bg transaction_loader">
+        <div class="load-wrapp">
+            <div class="load">
+                <span> Donlisa DRP.. </span>
+                <div class="square-holder">
+                    <div class="square"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="app">
         <nav-bar></nav-bar>
         @yield('content')
@@ -29,34 +39,29 @@
         <nav class="float-left">
           <ul>
             <li>
-              <a href="#">
-                Eskay Team
+              <a href="/faq">
+                Faq
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/about">
                 About Us
               </a>
             </li>
             <li>
-              <a href="#">
-                Blog
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                Licenses
+              <a href="/member">
+                Pay With EDPoints
               </a>
             </li>
           </ul>
         </nav>
         <div class="copyright float-right">
           &copy;
-          <!-- <script>
+          <script>
             document.write(new Date().getFullYear())
-          </script>, -->
-           made with <i class="material-icons">favorite</i> by
-          <a href="#" target="_blank">The Eskay Team</a>
+          </script>,
+           made by
+          <a href="http://amadurs.com" target="_blank">The Amadurs Team</a>
         </div>
       </div>
     </footer>
@@ -64,6 +69,7 @@
 
 <script src="{{ asset('js/app.js') }}" type="text/javascript"></script>
 
+<script src="https://js.paystack.co/v1/inline.js"></script>
 <!-- toastr js library -->
 <script src="{{ asset('toastr/toastr.min.js') }}"></script>
 <!--   Core JS Files   -->
@@ -72,11 +78,16 @@
 <script src="{{ asset('material-kit/js/core/bootstrap-material-design.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('material-kit/js/plugins/moment.min.js') }}"></script>
 <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
-<script src="{{ asset('material-kit/js/plugins/bootstrap-datetimepicker.js') }}" type="text/javascript"></script>
+<!-- <script src="{{ asset('material-kit/js/plugins/bootstrap-datetimepicker.js') }}" type="text/javascript"></script> -->
 <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
 <script src="{{ asset('material-kit/js/plugins/nouislider.min.js') }}" type="text/javascript"></script>
 <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
 <script src="{{ asset('material-kit/js/material-kit.js?v=2.0.5') }}" type="text/javascript"></script>
 
+<script>
+  $(window).on('load', function() {
+    $('.transaction_loader').addClass('hide')
+  })
+</script>
 </body>
 </html>

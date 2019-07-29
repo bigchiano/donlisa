@@ -1,5 +1,6 @@
 <script>
 import { EventBus } from '../Event';
+
     export default {
         data() {
             return {
@@ -9,7 +10,9 @@ import { EventBus } from '../Event';
                 vendor_code: '1904431C11',
                 private_key: '9d63c547ed81e661a70ebea31b896ed0ed0b48d93360684ba26f8b1bd9eeb8480a05addd88359eb9421ed97ca66b9cc9cafe58dc3d05b4946bb2f657c3d2d1f9',
                 public_key: 'ffadf646a1a68312cda497c373bbbbc9',
-                service: ''
+                // test details
+                // private_key: '5a52a78624f90ea38c277a7164458d91b15dcd494cc3fdd5508f4523e818ab325e91ba15b0ef485bb7fa62d699a7b4f409cf963574ecac8632149826277d8960',
+                // public_key: '444c734e90cfc2448c9bc241b09a530c'
             }
         },
         methods: {
@@ -21,7 +24,7 @@ import { EventBus } from '../Event';
                 return Math.random().toString().slice(2,14);
             },
             checkuser() {
-                if(this.token != null && this.user == null) {
+                if(this.token != null) {
                     axios.get('/api/user', {
                         headers: {'Authorization': `Bearer ${this.token}`}
                     })
@@ -30,9 +33,6 @@ import { EventBus } from '../Event';
                         this.user = response.data
                         this.auth = true
                     })
-                } else if (this.user != null) {
-                    this.user = this.user
-                    this.auth = true
                 } else {
                     this.user = ''
                     this.token = ''
@@ -47,11 +47,15 @@ import { EventBus } from '../Event';
                 this.token = ''
                 $cookies.remove('user')
                 $cookies.remove('token')
-                window.location.href = '/'
+                setTimeout(() => {
+                    window.location.href = '/'
+                }, 1000);
             },
             payWithPaystack(amount, newref, service, transaction_id){
                 var handler = PaystackPop.setup({
                 key: 'pk_live_7c2833fa3f51bd7d396717f03a93a0e5c48c9e4b',
+                // test key
+                // key: 'pk_test_f99e840ef703e7318471e9b8af9a0a2102ee25fc',
                 email: this.user.email,
                 amount: amount * 100,
                 currency: "NGN",
@@ -61,21 +65,20 @@ import { EventBus } from '../Event';
                         {
                             display_name: "Mobile Number",
                             variable_name: "mobile_number",
-                            value: "+2348012345678"
+                            value: this.user.phone,
                         }
                     ]
                 },
                 callback: function(response){
+                    // display loading screen
+                    $('.transaction_loader').removeClass('hide')
+
                     // user is buying airtime
                     if(service == 'airtime') {
                         axios.post('api/buy_airtime/paid/'+transaction_id)
                         .then(response => {
                             if(response.data.success) {
-                                let payload = {
-                                    service: 'airtime',
-                                    paid: true
-                                }
-                                EventBus.$emit('paid', payload)
+                                EventBus.$emit('paid', service)
                             }
                         })
                         .catch(errors => {
@@ -88,11 +91,7 @@ import { EventBus } from '../Event';
                         axios.post('api/buy_data/paid/'+transaction_id)
                         .then(response => {
                             if(response.data.success) {
-                                let payload = {
-                                    service: 'data',
-                                    paid: true
-                                }
-                                EventBus.$emit('paid', payload)
+                                EventBus.$emit('paid', service)
                             }
                         })
                         .catch(errors => {
@@ -105,11 +104,20 @@ import { EventBus } from '../Event';
                         axios.post('api/buy_power/paid/'+transaction_id)
                         .then(response => {
                             if(response.data.success) {
-                                let payload = {
-                                    service: 'power',
-                                    paid: true
-                                }
-                                EventBus.$emit('paid', payload)
+                                EventBus.$emit('paid', service)
+                            }
+                        })
+                        .catch(errors => {
+                            console.log(errors.response)
+                        })
+                    }
+
+                    // user is paying for tv subscriptions
+                    if(service == 'tv') {
+                        axios.post('api/buy_tv/paid/'+transaction_id)
+                        .then(response => {
+                            if(response.data.success) {
+                                EventBus.$emit('paid', service)
                             }
                         })
                         .catch(errors => {
@@ -118,22 +126,9 @@ import { EventBus } from '../Event';
                     }
                 },
                 onClose: function(){
-
-                    if(service == 'tv') {
-                        axios.post('api/buy_tv/paid/'+transaction_id)
-                        .then(response => {
-                            if(response.data.success) {
-                                let payload = {
-                                    service: 'tv',
-                                    paid: true
-                                }
-                                EventBus.$emit('paid', payload)
-                            }
-                        })
-                        .catch(errors => {
-                            console.log(errors)
-                        })
-                    }
+                    $('.transaction_loader').addClass('hide')
+                    toastr.info('Transaction canceled')
+                    EventBus.$emit('canceled', service)
                 }
                 });
                 handler.openIframe();

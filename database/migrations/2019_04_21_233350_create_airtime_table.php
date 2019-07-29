@@ -19,6 +19,7 @@ class CreateAirtimeTable extends Migration
             $table->string('network');
             $table->string('phone_to');
             $table->string('amount');
+            $table->string('transaction_id')->unique();
             $table->timestamps();
         });
     }

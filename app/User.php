@@ -37,4 +37,22 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //relationships
+    public function power()
+    {
+        return $this->hasMany(Power::class);
+    }
+    public function data()
+    {
+        return $this->hasMany(Data::class);
+    }
+    public function airtime()
+    {
+        return $this->hasMany(Airtime::class);
+    }
+    public function tv()
+    {
+        return $this->hasMany(Tv::class);
+    }
 }

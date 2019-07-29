@@ -9,6 +9,7 @@ class Airtime extends Model
     protected $table = 'airtime';
 
     protected $fillable = [
-        'user_id', 'network', 'phone_to', 'amount'
+        'user_id', 'network', 'phone_to', 'amount',
+        'transaction_id'
     ];
 }

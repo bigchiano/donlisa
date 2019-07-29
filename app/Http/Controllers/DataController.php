@@ -9,7 +9,9 @@ use App\Data;
 use App\Transaction;
 use App\Service;
 
-use Ixudra\Curl\Facades\Curl;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendMailable;
 
 class DataController extends Controller
 {
@@ -27,8 +29,9 @@ class DataController extends Controller
             return response()->json(['error' => $validator->errors()]);
         }
 
-        $request->request->add([
-            'user_id' => $request->user()->id
+        $request->merge([
+            'user_id' => $request->user()->id,
+            'transaction_id' => $request->transaction_id
         ]);
         $Data = Data::create($request->all());
         
@@ -51,11 +54,30 @@ class DataController extends Controller
         return response()->json(['success' => 'paid successfully']);
     }
 
+    // transaction completed
+    public function vend($transaction_id) {
+        $transaction = Transaction::where('transaction_id', $transaction_id)->first();
+        $transaction->delivered = true;
+        $transaction->save();
 
-    // call irecharge apis
+        return response()->json(['success' => 'sent successfully']);
+    }
+
+    // transaction history
+    public function transactions(Request $request) {
+        $transactions = Data::where('user_id', $request->user()->id)
+                        ->orderBy('created_at', 'DESC')
+                        ->simplePaginate(5);
+
+        return response()->json(['transactions' => $transactions]);
+    }
+
+    // IRECHARGE APIS ------------------------------------------------
     // public function get list on list
     public function check_data_bundles_list($param) {
-        $url = 'https://irecharge.com.ng/pwr_api_live/v2/get_data_bundles.php?';
+        // $url = 'https://irecharge.com.ng/pwr_api_live/v2/get_data_bundles.php?';
+        // test url
+        $url = 'https://irecharge.com.ng/pwr_api_sandbox/v2/get_data_bundles.php?';
 
         $response = Curl::to($url.''.$param)
         ->get();
@@ -63,11 +85,18 @@ class DataController extends Controller
     }
 
     // send data to user
-    public function vend_data($param) {
-        $url = 'https://irecharge.com.ng/pwr_api_live/v2/vend_data.php?';
+    public function vend_data(Request $request, $param) {
+        // $url = 'https://irecharge.com.ng/pwr_api_live/v2/vend_data.php?';
+        // test url
+        $url = 'https://irecharge.com.ng/pwr_api_sandbox/v2/vend_data.php?';
 
         $response = Curl::to($url.''.$param)
         ->get();
+        
+        $data = [
+            'message' => 'Your Data Subscription was successfull, Thank you for choosing Donlisa'
+        ];
+        Mail::to($request->user()->email)->send(new SendMailable($data));
         return response($response);
     }
 }

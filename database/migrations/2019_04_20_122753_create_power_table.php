@@ -17,7 +17,13 @@ class CreatePowerTable extends Migration
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->string('meter_number');
-            $table->string('amount');
+            $table->string('name')->nullable();
+            $table->string('disco');
+            $table->string('transaction_id')->unique();
+            $table->string('amount')->nullable();
+            $table->string('meter_token')->nullable();
+            $table->string('units')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
         });
     }

@@ -1,0 +1,48 @@
+/* transacton loader */
+.hide {
+    display: none;
+}
+.transaction_loader {
+    background-color: rgba(0,0,0,0.3);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 2000;
+}
+.white-bg {
+    background-color: #fff;
+}
+.transaction_loader .load-wrapp {
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    left: 50%;
+    margin-left: -50px;
+    top: 50%;
+    margin-top: -50px;
+    opacity: 1;
+}
+.load-wrapp span {
+    display: block;
+    padding: 0 0 10px;
+    color: #fff;
+    font-weight: bold;
+}
+.white-bg .load-wrapp span {
+    color: blueviolet;
+}
+.load-wrapp:last-child {margin-right: 0;}
+.square {
+    width: 12px;
+    height: 12px;
+    border-radius: 4px;
+    background-color: blueviolet;
+}
+.load .square {
+    animation: loadingG 1.5s cubic-bezier(.17,.37,.43,.67) infinite;
+}
+@keyframes loadingG {
+    0% {transform: translate(0,0) rotate(0deg);}
+    50% {transform: translate(70px,0) rotate(360deg);}
+    100% {transform: translate(0,0) rotate(0deg);}
+}

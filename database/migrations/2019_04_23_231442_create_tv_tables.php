@@ -20,6 +20,7 @@ class CreateTvTables extends Migration
             $table->string('package')->nullable();
             $table->string('amount')->nullable();
             $table->string('smart_card_no');
+            $table->string('transaction_id')->unique();
             $table->timestamps();
         });
     }
